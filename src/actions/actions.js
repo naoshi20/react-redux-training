@@ -1,23 +1,9 @@
-// データ取得時
-export const updatePostsStarted = () => {
-    console.log("updatePostsStarted action dispatched");
-    return {
-        type: "UPDATE_POSTS_STARTED",
-    };
-};
-
-export const updatePostsSuccess = (data) => {
-    console.log("updatePostsSuccess action dispatched with payload:", data);
-    return {
-        type: "UPDATE_POSTS_SUCCESS",
-        payload: data,
-    };
-};
-
-export const updatePostsFailure = (error) => ({
-    type: "UPDATE_POSTS_FAILURE",
-    payload: error,
-});
+import {
+    updatePostSuccess,
+    updatePostsFailure,
+    updatePostsStarted,
+    updatePostsSuccess,
+} from "../store/postsSlice";
 
 export const getPosts = () => {
     return async (dispatch) => {
@@ -34,15 +20,6 @@ export const getPosts = () => {
             .catch((error) => {
                 dispatch(updatePostsFailure(error.message));
             });
-    };
-};
-
-// 更新時
-export const updatePostSuccess = (data) => {
-    console.log("updatePostSuccess action dispatched with payload:", data);
-    return {
-        type: "UPDATE_POST_SUCCESS",
-        payload: data,
     };
 };
 

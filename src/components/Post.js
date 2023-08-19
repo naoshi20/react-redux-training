@@ -4,7 +4,7 @@ import { getPosts, updatePost } from "../actions/actions";
 
 const Post = () => {
     const dispatch = useDispatch();
-    const { posts, postsLoading } = useSelector((state) => state.postsReducer);
+    const { posts, postsLoading } = useSelector((state) => state.posts);
     console.log(posts);
 
     useEffect(() => {
@@ -13,6 +13,7 @@ const Post = () => {
         }
 
         dispatch(getPosts());
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     return (
