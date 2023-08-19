@@ -17,25 +17,22 @@ const initialState = {
 
 const postsReducer = (state = initialState, action) => {
     switch (action.type) {
-        case "ADD_POST_STARTED":
-            return {
-                ...state,
-                postsLoading: true,
-                error: null,
-            };
-        case "ADD_POST_SUCCESS":
+        case "UPDATE_POSTS_STARTED":
+            return { ...state, postsLoading: true, error: null };
+        case "UPDATE_POSTS_SUCCESS":
             return {
                 ...state,
                 postsLoading: false,
                 posts: action.payload,
                 error: null,
             };
-        case "ADD_POST_FAILURE":
-            return {
-                ...state,
-                postsLoading: false,
-                error: action.payload,
-            };
+        case "UPDATE_POSTS_FAILURE":
+            return { ...state, postsLoading: false, error: action.payload };
+        case "UPDATE_POST_SUCCESS":
+            const updatedPosts = state.posts.map((post) =>
+                post.id === action.payload.id ? action.payload : post
+            );
+            return { ...state, posts: updatedPosts };
         default:
             return state;
     }
@@ -46,8 +43,7 @@ const rootReducer = combineReducers({
     postsReducer,
 });
 
-// const store = createStore(rootReducer, applyMiddleware(thunk));
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, applyMiddleware(thunk));
 console.log(store.getState());
 
 export default store;
